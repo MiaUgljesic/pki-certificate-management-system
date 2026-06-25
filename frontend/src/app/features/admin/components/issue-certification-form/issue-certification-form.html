@@ -1,0 +1,222 @@
+<div class="form-container">
+  <div class="form-wrapper">
+    <div class="form-card">
+      <div class="form-header">
+        <h1>Issue Certificate</h1>
+      </div>
+      <div class="form-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+          <!-- Row 1: Common Name + Organization -->
+          <div class="form-row">
+            <!-- Common Name Field -->
+            <div class="form-group">
+              <label for="commonName" class="form-label">
+                Common Name <span class="required">*</span>
+              </label>
+              <input type="text" class="form-input" id="commonName" formControlName="commonName"
+                placeholder="e.g., www.example.com" [class.is-invalid]="
+                  form.get('commonName')?.invalid &&
+                  form.get('commonName')?.touched
+                " />
+              <div *ngIf="form.get('commonName')?.invalid && form.get('commonName')?.touched && commonNameError"
+                class="error-message">
+                {{ commonNameError }}
+              </div>
+            </div>
+
+            <!-- Organization Field -->
+            <div class="form-group">
+              <label for="organization" class="form-label">
+                Organization <span class="required">*</span>
+              </label>
+              <div class="position-relative">
+                <ng-container *ngIf="isAdmin; else orgInput">
+                  <select id="organization" class="form-input" formControlName="organization"
+                    [class.is-invalid]="form.get('organization')?.invalid && form.get('organization')?.touched"
+                    [disabled]="loadingOrganizations">
+                    <option value="">-- Select organization --</option>
+                    <option *ngIf="loadingOrganizations" value="" disabled>Loading organizations...</option>
+                    <option *ngFor="let org of organizations" [value]="org.name">{{ org.name }}</option>
+                  </select>
+                </ng-container>
+                <ng-template #orgInput>
+                  <input type="text" class="form-input" id="organization" formControlName="organization"
+                    placeholder="e.g., Example Corp" [class.is-invalid]="
+                      form.get('organization')?.invalid &&
+                      form.get('organization')?.touched
+                    " autocomplete="off" [readonly]="isCaUser" />
+                </ng-template>
+              </div>
+              <div *ngIf="form.get('organization')?.invalid && form.get('organization')?.touched && organizationError"
+                class="error-message">
+                {{ organizationError }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 1.5: Organizational Unit (full width) -->
+          <div class="form-group form-group-full">
+            <label for="organizationalUnit" class="form-label">
+              Organizational Unit
+            </label>
+            <input type="text" class="form-input" id="organizationalUnit" formControlName="organizationalUnit"
+              placeholder="e.g., IT Department" />
+          </div>
+
+          <!-- Row 2: Locality + Country -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="locality" class="form-label">
+                Locality
+              </label>
+              <input type="text" class="form-input" id="locality" formControlName="locality"
+                placeholder="e.g., Novi Sad" />
+            </div>
+
+            <div class="form-group">
+              <label for="country" class="form-label">
+                Country
+              </label>
+              <input type="text" class="form-input" id="country" formControlName="country" placeholder="e.g., RS"
+                maxlength="2" />
+            </div>
+          </div>
+
+          <!-- Row 3: Email (full width) -->
+          <div class="form-group form-group-full">
+            <label for="email" class="form-label">
+              Email
+            </label>
+            <input type="email" class="form-input" id="email" formControlName="email"
+              placeholder="e.g., admin@example.com" />
+          </div>
+
+          <!-- Row 3.5: SAN (full width) -->
+          <div class="form-group form-group-full">
+            <label for="san" class="form-label">
+              Subject Alternate Name (SAN)
+            </label>
+            <input type="text" class="form-input" id="san" formControlName="san"
+              placeholder="e.g., localhost, example.com" />
+          </div>
+
+          <!-- Row 4: Certificate Type + Valid To -->
+          <div class="form-row">
+            <!-- Certificate Type Field -->
+            <div class="form-group">
+              <label for="certificateType" class="form-label">
+                Certificate Type <span class="required">*</span>
+              </label>
+              <select class="form-input form-select" id="certificateType" formControlName="certificateType"
+                [class.is-invalid]="
+                  form.get('certificateType')?.invalid &&
+                  form.get('certificateType')?.touched
+                ">
+                <option value="END_ENTITY">End Entity</option>
+                <option value="INTERMEDIATE">Intermediate</option>
+                <option value="ROOT" *ngIf="isAdmin">Root</option>
+              </select>
+              <div *ngIf="form.get('certificateType')?.invalid && form.get('certificateType')?.touched && certificateTypeError"
+                class="error-message">
+                {{ certificateTypeError }}
+              </div>
+            </div>
+
+            <!-- Valid To Date Field -->
+            <div class="form-group">
+              <label for="validTo" class="form-label">
+                Valid To <span class="required">*</span>
+              </label>
+              <input type="date" class="form-input" id="validTo" formControlName="validTo" [class.is-invalid]="
+                  form.get('validTo')?.invalid &&
+                  form.get('validTo')?.touched
+                " />
+              <div *ngIf="form.get('validTo')?.invalid && form.get('validTo')?.touched && validToError"
+                class="error-message">
+                {{ validToError }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 5: Issuer Serial Number (conditional, full width) -->
+          <div *ngIf="form.get('certificateType')?.value !== 'ROOT'" class="form-group form-group-full">
+            <label for="issuerSerialNumber" class="form-label">
+              Issuer Serial Number <span class="required">*</span>
+            </label>
+            <div class="position-relative">
+              <select id="issuerSerialNumber" class="form-input" formControlName="issuerSerialNumber"
+                [class.is-invalid]="form.get('issuerSerialNumber')?.invalid && form.get('issuerSerialNumber')?.touched">
+                <option value="">-- Select issuer --</option>
+                <option *ngIf="loadingSigningAuthorities" value="" disabled>Loading signing authorities...</option>
+                <option *ngFor="let auth of signingAuthorities" [value]="auth.serialNumber">
+                  {{ auth.organizationName }} : {{ auth.commonName }}
+                </option>
+              </select>
+            </div>
+            <div *ngIf="form.get('issuerSerialNumber')?.invalid && form.get('issuerSerialNumber')?.touched && issuerSerialNumberError"
+              class="error-message">
+              {{ issuerSerialNumberError }}
+            </div>
+          </div>
+
+          <div *ngIf="form.get('certificateType')?.value === 'ROOT'" class="info-box">
+            <strong>Root Certificate:</strong> This certificate will be self-signed.
+            The Issuer Serial Number field is not applicable.
+          </div>
+
+          <!-- Row 6: Standard Extensions (full width) -->
+          <div class="form-group form-group-full">
+            <label class="form-label">
+              <strong>X.509 Standard Extensions</strong>
+            </label>
+            <div class="extensions-container">
+              <!-- Subject Key Identifier -->
+              <div class="checkbox-group">
+                <input type="checkbox" id="includeSubjectKeyIdentifier" formControlName="includeSubjectKeyIdentifier"
+                  class="form-checkbox" />
+                <label for="includeSubjectKeyIdentifier" class="checkbox-label">
+                  Subject Key Identifier
+                </label>
+                <span class="extension-description">
+                  Identifies the public key associated with this certificate
+                </span>
+              </div>
+
+              <!-- Authority Key Identifier -->
+              <div *ngIf="form.get('certificateType')?.value !== 'ROOT'" class="checkbox-group">
+                <input type="checkbox" id="includeAuthorityKeyIdentifier" formControlName="includeAuthorityKeyIdentifier"
+                  class="form-checkbox" [disabled]="form.get('certificateType')?.value === 'ROOT'" />
+                <label for="includeAuthorityKeyIdentifier" class="checkbox-label">
+                  Authority Key Identifier
+                </label>
+                <span class="extension-description">
+                  Identifies the issuer's public key (for non-root certificates)
+                </span>
+              </div>
+
+              <!-- Extended Key Usage -->
+              <div *ngIf="form.get('certificateType')?.value === 'END_ENTITY'" class="checkbox-group">
+                <input type="checkbox" id="includeExtendedKeyUsage" formControlName="includeExtendedKeyUsage"
+                  class="form-checkbox" />
+                <label for="includeExtendedKeyUsage" class="checkbox-label">
+                  Extended Key Usage
+                </label>
+                <span class="extension-description">
+                  Specifies usage purposes: TLS Web Server & Client Authentication
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit and Reset Buttons -->
+          <div class="form-actions">
+            <app-button text="Issue Certificate" variant="primary" width="100%" height="44px" [disabled]="isSubmitting"
+              type="submit"></app-button>
+            <app-button text="Reset" variant="ghost" width="100%" height="44px" [disabled]="isSubmitting"
+              (clicked)="resetForm()"></app-button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

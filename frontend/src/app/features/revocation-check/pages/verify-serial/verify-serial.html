@@ -1,0 +1,50 @@
+<div class="brutalist-container">
+  <div class="brutalist-box">
+    <h2 class="login-title">Verify Certificate Status</h2>
+    <p class="login-description">Enter the certificate serial number to check revocation status live.</p>
+
+    <div *ngIf="error()" class="error-banner">
+      {{ error() }}
+    </div>
+
+    <div class="form-field">
+      <label class="form-label" for="serial">SERIAL NUMBER</label>
+      <div class="brutalist-input-group">
+        <input
+          id="serial"
+          type="text"
+          class="form-input-grouped"
+          placeholder="e.g. 1781526600359"
+          [value]="serialNumber()"
+          (input)="onSerialChange($event.target.value)"
+          [disabled]="loading()"
+        />
+        <button 
+          type="button" 
+          class="btn btn-primary input-group-button" 
+          (click)="verify()" 
+          [disabled]="loading() || !serialNumber()"
+        >
+          {{ loading() ? 'CHECKING...' : 'VERIFY' }}
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="formattedMessage()" class="result-block" 
+         [ngClass]="{'status-revoked': result?.isRevoked || result?.revoked, 'status-valid': !(result?.isRevoked || result?.revoked)}">
+      
+      <div class="status-badge">
+        {{ (result?.isRevoked || result?.revoked) ? 'REVOKED' : 'VALID / ACTIVE' }}
+      </div>
+      
+      <p class="signup-text">{{ formattedMessage() }}</p>
+      
+      <div *ngIf="crlUrl" class="crl-link-container">
+        <a [href]="crlUrl" target="_blank" class="signup-link">
+          [ OPEN LIVE CRL DISTRIBUTION POINT ]
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>

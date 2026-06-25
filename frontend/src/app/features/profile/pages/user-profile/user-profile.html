@@ -1,0 +1,89 @@
+<app-page-header title="User profile" description="View your profile information" [showDateFilter]="false"></app-page-header>
+
+<div id="message" class="position-fixed top-0 end-0 p-3" style="z-index: 1050">
+  <div class="toast align-items-center text-white bg-black border-0" [class.show]="showMessage" role="alert"
+    aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        {{ message }}
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" (click)="showMessage = false">
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-0 pt-0">
+  @if (user) {
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">User Details</h5>
+          </div>
+          <div class="card-body">
+                <div class="detail-item">
+                    <label class="detail-label">Email</label>
+                    <p class="detail-value">{{ user.email }}</p>
+                </div>    
+                <div class="detail-item">
+                    <label class="detail-label">Name</label>
+                    <p class="detail-value">{{ user.name }}</p>
+                </div>
+                <div class="detail-item">
+                    <label class="detail-label">Surname</label>
+                    <p class="detail-value">{{ user.surname}}</p>
+                </div> 
+                <div class="detail-item">
+                    <label class="detail-label">Organization</label>
+                    <p class="detail-value">{{ user.organization }}</p>
+                </div> 
+                @if (user.publicKey) {
+                    <div class="detail-item">
+                        <label class="detail-label">Public key</label>
+                        <p class="detail-value text-break">{{ user.publicKey }}</p>
+                    </div> 
+                }
+            </div>    
+        </div>
+      </div>
+      <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+            <h5 class="mb-0">Two factor authentication</h5>
+            </div>
+            <div class="card-body">
+            <div class="detail-item d-flex justify-content-between align-items-center">
+                <label class="detail-label mb-0">Enable two factor authentication</label>
+                <div class="form-check form-switch"> 
+                    <input class="form-check-input custom-switch-black" type="checkbox" role="switch" id="switchBlack" [checked]="user.isTwoFactorEnabled" (change)="onTwoFactorToggle($event)">
+                </div>
+            </div>
+            @if (showQrSetup) {
+                <hr>
+                <div class="text-center my-3">
+                    <p class="small text-muted">Scan this QR code with your Google Authenticator</p>
+                    <div class="qr-placeholder border d-inline-block p-3 bg-light mb-3">
+                        @if (qrCodeUrl) {
+                            <img [src]="qrCodeUrl" alt="2FA QR Code"/>
+                        }
+                    </div>
+                    <div class="form-group mx-auto" style="max-width: 250px;">
+                        <label for="verificationCode" class="form-label font-weight-bold">Enter 6-digit Code</label>
+                        <input type="text" id="verificationCode" class="form-control text-center" maxLength="6" placeholder="123456" [(ngModel)]="verificationCode">
+                        <button class="btn btn-dark w-100 mt-2" (click)="verifyAndEnable2FA()"> Confirm and activate </button>
+                    </div>
+                </div>
+            }
+            </div>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="alert alert-warning">
+      <h4>User not found</h4>
+      <p>Unable to load user details. Please try again.</p>
+      <button class="btn btn-primary" (click)="goBack()">Go Back</button>
+    </div>
+  }
+</div>

@@ -1,0 +1,58 @@
+/* Page header - brutalist/login theme */
+.p-5 {
+	padding: 1.25rem !important;
+}
+
+.p-5 .text-center h2,
+.p-5 .text-lg-start h2 {
+	font-family: 'Courier New', 'Monaco', monospace;
+	font-size: 24px;
+	font-weight: 900;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
+	margin: 0;
+	color: #000000;
+}
+
+.p-5 p {
+	font-family: 'Courier New', 'Monaco', monospace;
+	font-size: 13px;
+	font-weight: 700;
+	color: #000000;
+	margin: 4px 0 0 0;
+}
+
+.p-5 .form-control {
+	padding: 10px 12px;
+	border: 3px solid #000000;
+	border-radius: 0px;
+	background: #ffffff;
+	font-family: 'Courier New', monospace;
+	font-weight: 700;
+	text-transform: none;
+	height: 38px;
+}
+
+.p-5 .btn {
+	font-family: 'Courier New', monospace;
+	font-weight: 900;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	border-radius: 0px;
+	border: 3px solid #000000 !important;
+}
+
+.p-5 .btn.btn-primary {
+	background: #FF1493 !important;
+	color: #ffffff !important;
+	box-shadow: 4px 4px 0px #000000;
+}
+
+.p-5 .btn.btn-secondary {
+	background: #ffffff !important;
+	color: #000000 !important;
+}
+
+@media (max-width: 768px) {
+	.p-5 .d-flex { flex-direction: column !important; gap: 8px; }
+}

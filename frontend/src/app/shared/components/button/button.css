@@ -1,0 +1,124 @@
+.button {
+  padding: 16px 18px;
+  border: 3px solid #000000;
+  border-radius: 0px;
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 14px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0ms;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.button.primary {
+  background: #FF1493;
+  color: #ffffff;
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.button.primary:hover:not(:disabled) {
+  box-shadow: 2px 2px 0px #000000;
+  transform: translate(2px, 2px);
+}
+
+.button.primary:active:not(:disabled) {
+  box-shadow: 0px 0px 0px #000000;
+  transform: translate(4px, 4px);
+}
+
+.button.primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button.secondary {
+  background-color: #ffffff;
+  color: #000000;
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.button.secondary:hover:not(:disabled) {
+  box-shadow: 2px 2px 0px #000000;
+  transform: translate(2px, 2px);
+}
+
+.button.secondary:active:not(:disabled) {
+  box-shadow: 0px 0px 0px #000000;
+  transform: translate(4px, 4px);
+}
+
+.button.secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button.danger {
+  background: #dc3545;
+  color: #ffffff;
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.button.danger:hover:not(:disabled) {
+  box-shadow: 2px 2px 0px #000000;
+  transform: translate(2px, 2px);
+}
+
+.button.danger:active:not(:disabled) {
+  box-shadow: 0px 0px 0px #000000;
+  transform: translate(4px, 4px);
+}
+
+.button.danger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button.ghost {
+  background: transparent;
+  color: #000000;
+  box-shadow: none;
+}
+
+.button.ghost:hover:not(:disabled) {
+  background: #000000;
+  color: #ffffff;
+}
+
+.button.outline {
+  background: transparent;
+  color: #ffffff;
+  border: 3px solid #ffffff;
+  box-shadow: none;
+}
+
+.button.outline:hover:not(:disabled) {
+  background: #ffffff;
+  color: #000000;
+}
+
+.button.black-outline {
+  background: transparent;
+  color: #000000;
+  border: 3px solid #000000;
+  box-shadow: none;
+}
+
+.button.black-outline:hover:not(:disabled) {
+  background: #000000;
+  color: #ffffff;
+}
+
+@media (max-width: 576px) {
+  .button {
+    padding: 12px 14px;
+    font-size: 12px;
+  }
+}

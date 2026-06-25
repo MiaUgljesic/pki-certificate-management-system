@@ -1,0 +1,144 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1050;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 560px;
+  background: #fff0f5;
+  border: 4px solid #000000;
+  border-radius: 0px;
+  box-shadow: 8px 8px 0px #000000;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: #FF1493;
+  color: #ffffff;
+  padding: 10px 12px;
+  border: 3px solid #000000;
+  border-bottom: 3px solid #000000;
+}
+
+.modal-title {
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 1.05rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.modal-subtitle { font-family: 'Courier New', monospace; font-size: 0.8rem; margin: 0; }
+
+.modal-close {
+  border: 3px solid #000000;
+  background: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #000000;
+  width: 36px;
+  height: 36px;
+}
+
+.modal-body {
+  display: grid;
+  gap: 8px;
+  padding: 8px 4px;
+}
+
+.modal-field { display: flex; flex-direction: column; gap: 0.25rem; }
+
+.modal-label {
+  font-family: 'Courier New', monospace;
+  font-weight: 900;
+  font-size: 0.8rem;
+  color: #222222;
+  margin: 0;
+}
+
+.modal-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 8px 4px 0 4px; }
+
+@media (max-width: 576px) {
+  .modal-card { padding: 8px; }
+  .modal-actions { flex-direction: column-reverse; align-items: stretch; }
+}
+
+.modal-tabs { display: flex; gap: 6px; padding: 0 4px; align-items: center; }
+
+.modal-tab {
+  flex: 0 0 auto;
+  padding: 4px 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #FF1493;
+  text-decoration: none;
+}
+
+.modal-tab:hover,
+.modal-tab:focus {
+  text-decoration: underline;
+  color: #FF0080;
+}
+
+.modal-tab.active {
+  color: #FF0080;
+  text-decoration: underline;
+}
+
+.modal-hint { font-family: 'Courier New', monospace; font-size: 0.78rem; color: #222222; margin: 0; }
+
+.format-toggle { display: flex; gap: 8px; }
+
+.format-btn {
+  flex: 1;
+  padding: 8px;
+  border: 3px solid #000000;
+  border-radius: 0px;
+  background: #fff0f5;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #222222;
+}
+
+.format-btn.active { background: #FF1493; color: #ffffff; border-color: #000000; }
+
+/* Force sharp-edged inputs for app-input-component inside this modal */
+app-input-component ::ng-deep .input {
+  border-radius: 0 !important;
+  border: 3px solid #000000 !important;
+  background: #ffffff !important;
+  height: 36px !important;
+  padding-left: 10px !important;
+  font-family: 'Courier New', monospace !important;
+  font-weight: 700 !important;
+  color: #222222 !important;
+}
+
+app-input-component ::ng-deep .input:focus {
+  outline: none !important;
+  box-shadow: inset 0 0 0 3px rgba(255,20,147,0.06);
+}
+
+/* Remove rounded suggestions dropdown corners for consistency */
+app-input-component ::ng-deep .suggestions-dropdown { border-radius: 0 !important; }

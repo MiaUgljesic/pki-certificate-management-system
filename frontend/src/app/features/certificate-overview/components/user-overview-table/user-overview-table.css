@@ -1,0 +1,85 @@
+.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.sortable:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Brutalist user overview table styles - sharp edges, pink boxes */
+.sortable { cursor: pointer; user-select: none; }
+
+.sort-icon { font-size: 0.8em; margin-left: 0.25rem; opacity: 0.6; }
+
+.fav-cell { width: 40px; text-align: center; }
+
+.fav-cell .bi { font-size: 1.05rem; cursor: pointer; }
+
+.sortable:hover .sort-icon { opacity: 1; }
+
+.clickable-row { cursor: pointer; }
+
+.clickable-row:hover { background: #fff7fb; }
+
+/* Table base - sharp, boxed, pink */
+
+/* Table fills the surrounding pink box and sits flush */
+.table {
+  width: 100%;
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 13px;
+  color: #222222;
+  border-collapse: collapse;
+  border: 4px solid #000000;
+  background: #fff0f5;
+  margin: 0;
+  box-sizing: border-box;
+  box-shadow: 8px 8px 0px #000000;
+}
+
+.table th,
+.table td {
+  border: none;
+  padding: 10px 12px;
+  vertical-align: middle;
+  font-weight: 700;
+  color: #222222;
+  background: transparent;
+}
+
+.table thead th {
+  background: #FF1493;
+  color: #ffffff;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 3px solid #000000;
+  border-radius: 0px;
+}
+
+.table tbody tr:hover { background: rgba(255,20,147,0.06); }
+
+/* Sharp edges for headers/cells */
+.table th, .table td { border-radius: 0px; }
+
+.badge {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 6px 10px;
+  border: 3px solid #000000;
+  border-radius: 0px;
+  box-shadow: 4px 4px 0px #000000;
+  display: inline-block;
+  background: #fff0f5;
+}
+
+/* Remove padding from wrapper utilities inside this component so table is flush */
+.px-5 { padding-left: 0 !important; padding-right: 0 !important; }
+.pb-5 { padding-bottom: 0 !important; }
+
+.table-responsive { margin: 0; padding: 0; }

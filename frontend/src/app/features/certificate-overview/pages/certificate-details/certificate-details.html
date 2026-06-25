@@ -1,0 +1,162 @@
+<div class="container mt-4">
+  @if (certificate) {
+    <div class="top-actions d-flex justify-content-end mb-3">
+      @if (certificate.status === 'ACTIVE') {
+        <app-button text="[ REVOKE CERTIFICATE ]" variant="ghost" width="auto" height="36px" (clicked)="$event.stopPropagation(); openRevokeModal()"></app-button>
+      }
+      @if (certificate.status === 'REVOKED' && canDownloadCrl()) {
+        <app-button text="Download CRL" variant="ghost" width="140px" height="36px" (clicked)="$event.stopPropagation(); downloadCrl()"></app-button>
+      }
+      @if (certificate.status === 'REVOKED' && canUnrevoke()) {
+        <app-button text="[ UNREVOKE CERTIFICATE ]" variant="ghost" width="auto" height="36px" (clicked)="$event.stopPropagation(); unrevokeCertificate()"></app-button>
+      }
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Certificate Details</h5>
+          </div>
+          <div class="card-body">
+            <div class="detail-item">
+              <label class="detail-label">Serial Number</label>
+              <p class="detail-value">{{ certificate.serialNumber }}</p>
+            </div>           
+            @if (certificate.issuerSerialNumber) {
+              <div class="detail-item">
+                <label class="detail-label">Issuer Serial Number</label>
+                <p class="detail-value">{{ certificate.issuerSerialNumber }}</p>
+              </div>
+            }
+            @if (certificate.certificateType) {
+              <div class="detail-item">
+                <label class="detail-label">Certificate Type</label>
+                <p class="detail-value">{{ certificate.certificateType }}</p>
+              </div>
+            }            
+            <div class="detail-item">
+              <label class="detail-label">Common Name</label>
+              <p class="detail-value">{{ certificate.commonName }}</p>
+            </div>
+            <div class="detail-item">
+              <label class="detail-label">Organization</label>
+              <p class="detail-value">{{ certificate.organizationName}}</p>
+            </div>
+            <div class="detail-item">
+              <label class="detail-label">Organizational Unit</label>
+              <p class="detail-value">{{ certificate.organizationalUnit ?? 'N/A' }}</p>
+            </div>
+            <div class="detail-item">
+              <label class="detail-label">Country</label>
+              <p class="detail-value">{{ certificate.country ?? 'N/A' }}</p>
+            </div>
+            <div class="detail-item">
+              <label class="detail-label">Email</label>
+              <p class="detail-value">{{ certificate.email ?? 'N/A' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Status & Validity</h5>
+          </div>
+          <div class="card-body">
+            <div class="detail-item">
+              <label class="detail-label">Status</label>
+              <p class="detail-value">
+                <span [class]="getStatusClass(certificate.status)">{{ certificate.status }}</span>
+              </p>
+            </div>
+            @if (certificate.status === 'REVOKED') {
+              <div class="detail-item">
+                <label class="detail-label">Revocation Reason</label>
+                <p class="detail-value">{{ certificate.revocationReason ?? 'N/A' }}</p>
+              </div>
+              <div class="detail-item">
+                <label class="detail-label">Revoked At</label>
+                <p class="detail-value">{{ certificate.revokedAt }}</p>
+              </div>
+            }
+            <div class="detail-item">
+              <label class="detail-label">Valid From</label>
+              <p class="detail-value">{{ certificate.validFrom }}</p>
+            </div>
+            <div class="detail-item">
+              <label class="detail-label">Valid To</label>
+              <p class="detail-value">{{ certificate.validTo }}</p>
+            </div>
+            <div class="detail-item">
+              <label class="detail-label">Key Algorithm</label>
+              <p class="detail-value">{{ certificate.keyAlgorithm ?? 'N/A' }}</p>
+            </div>
+            <div class="detail-item">
+              <label class="detail-label">Key Size</label>
+              <p class="detail-value">{{ certificate.keySize ? certificate.keySize + ' bits' : 'N/A' }}</p>
+            </div>
+            <div class="detail-item">
+              <label class="detail-label">Signature Algorithm</label>
+              <p class="detail-value">{{ certificate.signatureAlgorithm ?? 'N/A' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Extensions</h5>
+          </div>
+          <div class="card-body">
+            <div class="detail-item">
+              <label class="detail-label">SAN (Subject Alternative Name)</label>
+              <p class="detail-value">{{ certificate.SAN ?? 'N/A' }}</p>
+            </div>
+            <div class="detail-item">
+              <label class="detail-label">Include Subject Key Identifier</label>
+              <p class="detail-value">
+                <span [class]="certificate.includeSubjectKeyIdentifier ? 'badge bg-success' : 'badge bg-secondary'">
+                  {{ certificate.includeSubjectKeyIdentifier ? 'Yes' : 'No' }}
+                </span>
+              </p>
+            </div>
+            <div class="detail-item">
+              <label class="detail-label">Include Authority Key Identifier</label>
+              <p class="detail-value">
+                <span [class]="certificate.includeAuthorityKeyIdentifier ? 'badge bg-success' : 'badge bg-secondary'">
+                  {{ certificate.includeAuthorityKeyIdentifier ? 'Yes' : 'No' }}
+                </span>
+              </p>
+            </div>
+            <div class="detail-item">
+              <label class="detail-label">Include Extended Key Usage</label>
+              <p class="detail-value">
+                <span [class]="certificate.includeExtendedKeyUsage ? 'badge bg-success' : 'badge bg-secondary'">
+                  {{ certificate.includeExtendedKeyUsage ? 'Yes' : 'No' }}
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    @if (showRevokeModal) {
+      <app-revoke-modal 
+        [serialNumber]="certificate.serialNumber"
+        (closed)="handleModalClose($event)">
+      </app-revoke-modal>
+    }
+  } @else {
+    <div class="alert alert-warning">
+      <h4>Certificate not found</h4>
+      <p>Unable to load certificate details. Please try again.</p>
+      <button class="btn btn-primary" (click)="goBack()">Go Back</button>
+    </div>
+  }
+  
+</div>

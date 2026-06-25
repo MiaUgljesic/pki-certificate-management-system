@@ -1,0 +1,89 @@
+<div class="brutalist-container">
+  <div class="brutalist-box">
+    <div class="header-section">
+      <h1>ACTIVATE ACCOUNT</h1>
+      <div class="header-line"></div>
+    </div>
+    <div *ngIf="errorMessage" class="alert-box alert-error">
+      <span class="alert-marker">ERROR:</span>
+      <span>{{ errorMessage }}</span>
+    </div>
+    <div *ngIf="successMessage" class="alert-box alert-success">
+      <span class="alert-marker">SUCCESS:</span>
+      <span>{{ successMessage }}</span>
+    </div>
+    <div class="form-field">
+      <label class="form-label">ACTIVATION TOKEN</label>
+      <input 
+        type="text" 
+        [value]="token" 
+        readonly 
+        class="form-input readonly-input"
+        title="This token was extracted from the activation link"
+      />
+      <small class="form-hint">Read-only token extracted from your activation link</small>
+    </div>
+    <div class="form-field">
+      <label class="form-label">ENCRYPTED CHALLENGE</label>
+      <textarea 
+        [value]="challenge" 
+        readonly 
+        class="form-textarea readonly-input"
+        title="This challenge needs to be decrypted with your private key"
+      ></textarea>
+      <small class="form-hint">Base64-encoded challenge that will be decrypted locally</small>
+    </div>
+    <div class="form-field">
+      <label class="form-label">PRIVATE KEY (PEM FORMAT) *</label>
+      <div class="file-upload-section">
+        <input 
+          type="file" 
+          (change)="onFileSelected($event)" 
+          accept=".pem,.key,.txt"
+          id="privateKeyFile"
+          class="file-input"
+          [disabled]="loading"
+        />
+        <label for="privateKeyFile" class="file-input-label">
+          CHOOSE PRIVATE KEY FILE
+        </label>
+        <div *ngIf="selectedFileName" class="selected-file-box">
+          <span class="file-icon">📄</span>
+          <span class="file-name">{{ selectedFileName }}</span>
+          <button 
+            type="button"
+            class="clear-file-btn"
+            (click)="clearFileSelection()"
+            title="Clear selected file"
+          >
+            ✕
+          </button>
+        </div>
+        <p class="or-separator">OR PASTE BELOW</p>
+      </div>
+      <textarea 
+        [(ngModel)]="privateKeyPem" 
+        placeholder="-----BEGIN PRIVATE KEY-----&#10;...&#10;-----END PRIVATE KEY-----"
+        class="form-textarea"
+        [disabled]="loading"
+        (ngModelChange)="privateKeyPem = $event"
+      ></textarea>
+      <small class="form-hint">Your private key is processed only in your browser. All decryption happens locally.</small>
+    </div>
+    <button 
+      (click)="activateAccount()" 
+      [disabled]="loading || !token || !challenge || !privateKeyPem"
+      class="btn btn-primary"
+    >
+      [{{ loading ? 'PROCESSING...' : 'ACTIVATE ACCOUNT' }}]
+    </button>
+    <div class="security-box">
+      <div class="security-header">SECURITY NOTICE</div>
+      <ul class="security-list">
+        <li>Your private key is processed only in your browser.</li>
+        <li>The decrypted challenge is sent to the server.</li>
+        <li>Uses RSA-OAEP encryption with SHA-256 hashing.</li>
+      </ul>
+    </div>
+  </div>
+</div>

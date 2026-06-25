@@ -1,0 +1,23 @@
+/* All Certificates page - align with brutalist overview styles */
+:host {
+  display: block;
+  min-height: calc(100vh - 60px);
+  padding: 24px;
+  background: #f5f2eb;
+}
+
+app-admin-certificates-table {
+  display: block;
+  background: transparent;
+  border: none;
+  padding: 0; /* flush */
+  box-shadow: none;
+}
+
+.px-5 { padding-left: 0 !important; padding-right: 0 !important; }
+.pb-5 { padding-bottom: 0 !important; }
+
+@media (max-width: 768px) {
+  :host { padding: 12px; }
+}
+/* All Certificates Page Styles */

@@ -1,0 +1,29 @@
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-button',
+  standalone: true,
+  templateUrl: './button.html',
+  styleUrl: './button.css',
+  imports: [RouterLink, CommonModule]
+})
+export class Button {
+  @Input() text: string = '';
+  @Input() width: string = '100%';
+  @Input() height: string = '100%';
+  @Input() fontWeight: string = '100';
+  @Input() textTransform: string = 'none';
+  @Input() variant: 'primary' | 'secondary' | 'danger' | 'ghost' | 'outline' | 'black-outline' = 'primary';
+  @Input() type: 'button' | 'submit' | 'reset' = 'button';
+
+  @Input() routerLink?: string;
+  @Input() disabled: boolean = false;
+
+  @Output() clicked = new EventEmitter<MouseEvent>();
+
+  onClick(event: MouseEvent) {
+    this.clicked.emit(event); // Pass the event through
+  }
+}

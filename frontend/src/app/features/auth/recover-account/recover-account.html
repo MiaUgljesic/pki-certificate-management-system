@@ -1,0 +1,159 @@
+<div class="brutalist-container">
+  <div class="brutalist-box">
+    <div class="header-section">
+      <h1>RECOVER ACCOUNT</h1>
+      <div class="header-line"></div>
+    </div>
+
+    <div *ngIf="isSuccess" class="success-view">
+      <div class="success-icon">✓</div>
+      <h2 class="success-title">PASSWORD SUCCESSFULLY RESET!</h2>
+      <p class="success-message">YOU CAN NOW LOG IN WITH YOUR NEW PASSWORD</p>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="navigateToLogin()"
+      >
+        RETURN TO LOGIN
+      </button>
+    </div>
+
+    <div *ngIf="!isSuccess">
+      <div *ngIf="errorMessage" class="alert-box alert-error">
+        <span class="alert-marker">ERROR:</span>
+        <span>{{ errorMessage }}</span>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">RECOVERY TOKEN</label>
+        <input
+          type="text"
+          [value]="token"
+          readonly
+          class="form-input readonly-input"
+          title="This token was extracted from the recovery link"
+        />
+        <small class="form-hint">Read-only token extracted from your recovery link</small>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">ENCRYPTED CHALLENGE</label>
+        <textarea
+          [value]="challenge"
+          readonly
+          class="form-textarea readonly-input"
+          title="This challenge needs to be decrypted with your private key"
+        ></textarea>
+        <small class="form-hint">Base64-encoded challenge that will be decrypted locally</small>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">PRIVATE KEY (PEM FORMAT) *</label>
+        <div class="file-upload-section">
+          <input
+            type="file"
+            (change)="onFileSelected($event)"
+            accept=".pem,.key,.txt"
+            id="privateKeyFile"
+            class="file-input"
+            [disabled]="loading"
+          />
+          <label for="privateKeyFile" class="file-input-label">
+            CHOOSE PRIVATE KEY FILE
+          </label>
+          <div *ngIf="selectedFileName" class="selected-file-box">
+            <span class="file-icon">📄</span>
+            <span class="file-name">{{ selectedFileName }}</span>
+            <button
+              type="button"
+              class="clear-file-btn"
+              (click)="clearFileSelection()"
+              title="Clear selected file"
+            >
+              ✕
+            </button>
+          </div>
+          <p class="or-separator">OR PASTE BELOW</p>
+        </div>
+        <textarea
+          [(ngModel)]="privateKeyPem"
+          placeholder="-----BEGIN PRIVATE KEY-----&#10;...&#10;-----END PRIVATE KEY-----"
+          class="form-textarea"
+          [disabled]="loading"
+          (ngModelChange)="privateKeyPem = $event"
+        ></textarea>
+        <small class="form-hint">Your private key is processed only in your browser. All decryption happens locally.</small>
+      </div>
+
+      <div class="form-field">
+        <label for="newPassword" class="form-label">NEW PASSWORD *</label>
+        <div class="password-wrapper">
+          <input
+            id="newPassword"
+            [type]="showPassword ? 'text' : 'password'"
+            [(ngModel)]="newPassword"
+            placeholder="Minimum 8 characters"
+            class="form-input"
+            [class.input-error]="hasPasswordValidationError()"
+            [disabled]="loading"
+          />
+          <button
+            type="button"
+            class="toggle-btn"
+            (click)="togglePasswordVisibility()"
+            [disabled]="loading"
+            title="Toggle password visibility"
+          >
+            [{{ showPassword ? 'HIDE' : 'SHOW' }}]
+          </button>
+        </div>
+        <div *ngIf="hasPasswordValidationError()" class="error-msg">{{ getPasswordValidationError() }}</div>
+      </div>
+
+      <div class="form-field">
+        <label for="confirmPassword" class="form-label">CONFIRM PASSWORD *</label>
+        <div class="password-wrapper">
+          <input
+            id="confirmPassword"
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            [(ngModel)]="confirmPassword"
+            placeholder="Repeat your password"
+            class="form-input"
+            [class.input-error]="hasPasswordMismatch()"
+            [disabled]="loading"
+          />
+          <button
+            type="button"
+            class="toggle-btn"
+            (click)="toggleConfirmPasswordVisibility()"
+            [disabled]="loading"
+            title="Toggle password visibility"
+          >
+            [{{ showConfirmPassword ? 'HIDE' : 'SHOW' }}]
+          </button>
+        </div>
+        <div *ngIf="hasPasswordMismatch()" class="error-msg">PASSWORDS DO NOT MATCH</div>
+      </div>
+
+      <div class="btn-center">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="resetPassword()"
+          [disabled]="loading || !isFormValid()"
+        >
+          [{{ loading ? 'RESETTING PASSWORD...' : 'RESET PASSWORD' }}]
+        </button>
+      </div>
+
+      <div class="security-box">
+        <div class="security-header">SECURITY NOTICE</div>
+        <ul class="security-list">
+          <li>Your private key is processed only in your browser.</li>
+          <li>The decrypted challenge is sent to the server.</li>
+          <li>Uses RSA-OAEP encryption with SHA-256 hashing.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="px-5 pb-5">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th scope="col" class="sortable" (click)="sort('serialNumber')">
+                    Serial Number <span class="sort-icon">{{ getSortIcon('serialNumber') }}</span>
+                    </th>
+                    <th scope="col" class="sortable" (click)="sort('commonName')">
+                    Common Name <span class="sort-icon">{{ getSortIcon('commonName') }}</span>
+                    </th>
+                    <th scope="col" class="sortable" (click)="sort('organization')">
+                    Organization <span class="sort-icon">{{ getSortIcon('organization') }}</span>
+                    </th>
+                    <th scope="col" class="sortable" (click)="sort('status')">
+                    Status <span class="sort-icon">{{ getSortIcon('status') }}</span>
+                    </th>
+                    <th scope="col" class="sortable" (click)="sort('validFrom')">
+                    Valid From <span class="sort-icon">{{ getSortIcon('validFrom') }}</span>
+                    </th>
+                    <th scope="col" class="sortable" (click)="sort('validTo')">
+                    Valid To <span class="sort-icon">{{ getSortIcon('validTo') }}</span>
+                    </th>
+                    <th scope="col" class="sortable" (click)="sort('issuerSerialNumber')">
+                    Issuer Serial Number <span class="sort-icon">{{ getSortIcon('issuerSerialNumber') }}</span>
+                    </th>
+                    <th scope="col" class="sortable" (click)="sort('certificateType')">
+                    Certificate Type <span class="sort-icon">{{ getSortIcon('certificateType') }}</span>
+                    </th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (certificate of certificates; track certificate.id) {
+                    <tr class="clickable-row" (click)="viewCertificateDetails(certificate)">
+                        <td>{{ certificate.serialNumber }}</td>
+                        <td>{{ certificate.commonName }}</td>
+                        <td>{{ certificate.organizationName }}</td>
+                        <td>
+                        <span [class]="getStatusClass(certificate.status)">{{ certificate.status }}</span>
+                        </td>
+                        <td>{{ certificate.validFrom }}</td>
+                        <td>{{ certificate.validTo }}</td>
+                        <td>{{ certificate.issuerSerialNumber ?? 'N/A' }}</td>
+                        <td>{{ certificate.certificateType ?? 'N/A' }}</td>
+                        <td>
+                            <app-button
+                                text="Download"
+                                variant="ghost"
+                                width="100px"
+                                height="30px"
+                                (click)="$event.stopPropagation(); onDownloadClick(certificate)">
+                            </app-button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

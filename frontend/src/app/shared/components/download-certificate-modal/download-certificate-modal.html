@@ -1,0 +1,55 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Download certificate</div>
+        <div class="modal-subtitle">Serial: {{ certificate?.serialNumber }}</div>
+      </div>
+      <button class="modal-close" type="button" (click)="onClose()">×</button>
+    </div>
+    
+    @if (allowWithKey()) {
+      <div class="modal-tabs">
+        <button class="modal-tab" [class.active]="mode === 'without-key'" type="button" (click)="setMode('without-key')"> Without private key </button>
+        <button class="modal-tab" [class.active]="mode === 'with-key'" type="button" (click)="setMode('with-key')"> With private key </button>
+      </div>
+    }
+
+    <div class="modal-body">
+      @if (mode === 'with-key') {
+        <div class="modal-field">
+          <label class="modal-label">Password</label>
+          <app-input-component type="password" placeholder="Enter password for .p12 file" [value]="password" (valueChange)="password = $event"></app-input-component>
+        </div>
+        <div class="modal-field">
+          <label class="modal-label">Alias (optional)</label>
+          <app-input-component placeholder="Alias" [value]="alias" (valueChange)="alias = $event"></app-input-component>
+        </div>
+        <p class="modal-hint">Downloads as a PKCS12 (.p12) keystore containing the certificate and private key.</p>
+      }
+
+      @if (mode === 'without-key') {
+        <div class="modal-field">
+          <label class="modal-label">Format</label>
+          <div class="format-toggle">
+            <button class="format-btn" [class.active]="format === 'PEM'" type="button" (click)="format = 'PEM'">PEM</button>
+            <button class="format-btn" [class.active]="format === 'CER'" type="button" (click)="format = 'CER'">CER</button>
+          </div>
+        </div>
+        <p class="modal-hint">
+          @if (format === 'PEM') {
+            Downloads as a .pem file — human-readable, base64 encoded.
+          } @else {
+            Downloads as a .cer file — binary DER encoded.
+          }
+        </p>
+      }
+    </div>
+
+    <div class="modal-actions">
+      <app-button text="Cancel" variant="ghost" width="120px" height="36px" (clicked)="onClose()"></app-button>
+      <app-button text="Download" variant="primary" width="140px" height="36px" [disabled]="!canSubmit" (clicked)="onSubmit()"></app-button>
+    </div>
+  </div>
+</div>

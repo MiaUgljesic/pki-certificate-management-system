@@ -1,0 +1,241 @@
+<div class="brutalist-container">
+  <div class="brutalist-box">
+    <div class="header-section">
+      <h1>REGISTER</h1>
+      <div class="step-indicator">
+        <span [class.active]="currentStep === 'user-info'">STEP 1: USER INFO</span>
+        <span class="separator">—</span>
+        <span [class.active]="currentStep === 'key-generation'">STEP 2: SECURITY</span>
+      </div>
+      <div class="header-line"></div>
+    </div>
+
+    <div *ngIf="isSuccess" class="success-view">
+      <div class="success-icon">✓</div>
+      <h2 class="success-title">REGISTRATION INITIATED</h2>
+      <p class="success-message">PLEASE CHECK YOUR EMAIL FOR THE ACTIVATION CHALLENGE</p>
+    </div>
+
+    <div *ngIf="isError" class="error-view">
+      <div class="error-icon">✕</div>
+      <h2 class="error-title">OOPS, SOMETHING WENT WRONG!</h2>
+      <p class="error-detail">{{ errorDetails }}</p>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="tryAgain()"
+      >
+        TRY AGAIN
+      </button>
+    </div>
+
+    <div *ngIf="!isSuccess && !isError">
+      <div *ngIf="errorMessage" class="alert-box alert-error">
+        <span class="alert-marker">ERROR:</span>
+        <span>{{ errorMessage }}</span>
+      </div>
+      <div *ngIf="successMessage" class="alert-box alert-success">
+        <span class="alert-marker">SUCCESS:</span>
+        <span>{{ successMessage }}</span>
+      </div>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form">
+      <div *ngIf="currentStep === 'user-info'" class="form-step">
+        <div class="form-field">
+          <label for="email" class="form-label">EMAIL *</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="you@example.com"
+            class="form-input"
+            [class.input-error]="hasError('email', 'email') || hasError('email', 'required')"
+            [disabled]="loading"
+          />
+          <div *ngIf="hasError('email', 'required')" class="error-msg">EMAIL REQUIRED</div>
+          <div *ngIf="hasError('email', 'email')" class="error-msg">INVALID EMAIL FORMAT</div>
+        </div>
+        <div class="form-field">
+          <label for="firstName" class="form-label">FIRST NAME *</label>
+          <input
+            id="firstName"
+            type="text"
+            formControlName="firstName"
+            placeholder="John"
+            class="form-input"
+            [class.input-error]="hasError('firstName', 'required') || hasError('firstName', 'minlength')"
+            [disabled]="loading"
+          />
+          <div *ngIf="hasError('firstName', 'required')" class="error-msg">FIRST NAME REQUIRED</div>
+          <div *ngIf="hasError('firstName', 'minlength')" class="error-msg">MINIMUM 2 CHARACTERS</div>
+        </div>
+        <div class="form-field">
+          <label for="lastName" class="form-label">LAST NAME *</label>
+          <input
+            id="lastName"
+            type="text"
+            formControlName="lastName"
+            placeholder="Doe"
+            class="form-input"
+            [class.input-error]="hasError('lastName', 'required') || hasError('lastName', 'minlength')"
+            [disabled]="loading"
+          />
+          <div *ngIf="hasError('lastName', 'required')" class="error-msg">LAST NAME REQUIRED</div>
+          <div *ngIf="hasError('lastName', 'minlength')" class="error-msg">MINIMUM 2 CHARACTERS</div>
+        </div>
+        <div class="form-field">
+          <label for="organization" class="form-label">ORGANIZATION *</label>
+          <select
+            id="organization"
+            formControlName="organization"
+            class="form-select"
+            [class.input-error]="hasError('organization', 'required')"
+            [disabled]="loading"
+          >
+            <option value="" disabled selected>SELECT ORGANIZATION</option>
+            <option *ngFor="let org of organizations" [value]="org.name">
+              {{ org.name }}
+            </option>
+          </select>
+          <div *ngIf="hasError('organization', 'required')" class="error-msg">ORGANIZATION REQUIRED</div>
+          <div *ngIf="!loading && organizations.length === 0" class="error-msg">NO ORGANIZATIONS AVAILABLE</div>
+        </div>
+        <div class="form-field">
+          <label for="password" class="form-label">PASSWORD *</label>
+          <div class="password-wrapper">
+            <input
+              id="password"
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="Minimum 8 characters"
+              class="form-input"
+              [class.input-error]="hasPasswordValidationError()"
+              [disabled]="loading"
+            />
+            <button
+              type="button"
+              class="toggle-btn"
+              (click)="togglePasswordVisibility()"
+              [disabled]="loading"
+              title="Toggle password visibility"
+            >
+              [{{ showPassword ? 'HIDE' : 'SHOW' }}]
+            </button>
+          </div>
+          <div *ngIf="hasPasswordValidationError()" class="error-msg">{{ getPasswordValidationError() }}</div>
+        </div>
+        <div class="form-field">
+          <label for="confirmPassword" class="form-label">CONFIRM PASSWORD *</label>
+          <div class="password-wrapper">
+            <input
+              id="confirmPassword"
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              formControlName="confirmPassword"
+              placeholder="Repeat your password"
+              class="form-input"
+              [class.input-error]="hasPasswordMismatch() || hasError('confirmPassword', 'required')"
+              [disabled]="loading"
+            />
+            <button
+              type="button"
+              class="toggle-btn"
+              (click)="toggleConfirmPasswordVisibility()"
+              [disabled]="loading"
+              title="Toggle password visibility"
+            >
+              [{{ showConfirmPassword ? 'HIDE' : 'SHOW' }}]
+            </button>
+          </div>
+          <div *ngIf="hasError('confirmPassword', 'required')" class="error-msg">CONFIRM PASSWORD REQUIRED</div>
+          <div *ngIf="hasPasswordMismatch()" class="error-msg">PASSWORDS DO NOT MATCH</div>
+        </div>
+        <div class="btn-center">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="proceedToStep2()"
+            [disabled]="loading || !isStep1Valid()"
+          >
+            NEXT: SECURITY SETUP
+          </button>
+        </div>
+      </div>
+      <div *ngIf="currentStep === 'key-generation'" class="form-step">
+        <div class="key-section">
+          <h2 class="section-title">CRYPTOGRAPHIC KEY PAIR GENERATION</h2>
+          <div class="divider-line"></div>
+
+          <p class="info-text">
+            To complete your registration securely, you must generate an asymmetric RSA key pair in your browser:
+          </p>
+
+          <div class="instructions-list">
+            <div class="instruction-item">
+              <span class="instruction-number">1</span>
+              <span class="instruction-text">Click the button below to generate a 2048-bit RSA key pair</span>
+            </div>
+            <div class="instruction-item">
+              <span class="instruction-number">2</span>
+              <span class="instruction-text">Your private key will automatically download as <strong>private_key.pem</strong></span>
+            </div>
+            <div class="instruction-item">
+              <span class="instruction-number">3</span>
+              <span class="instruction-text">Save your private key in a secure location - you'll need it for account activation</span>
+            </div>
+            <div class="instruction-item">
+              <span class="instruction-number">4</span>
+              <span class="instruction-text">Your public key will be automatically added to the registration</span>
+            </div>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="btn btn-primary btn-large"
+          (click)="generateKeyPair()"
+          [disabled]="loading || keyGenerating || publicKeyGenerated"
+        >
+          [{{ keyGenerating ? 'GENERATING KEYS...' : 'GENERATE CRYPTOGRAPHIC KEYS' }}]
+        </button>
+        <div class="key-status-box" [class.generated]="publicKeyGenerated">
+          <span class="status-label">KEY GENERATION STATUS:</span>
+          <span class="status-value">{{ publicKeyGenerated ? '✓ COMPLETE' : '✗ PENDING' }}</span>
+        </div>
+        <div *ngIf="publicKeyGenerated" class="form-field">
+          <label for="publicKeyPem" class="form-label">PUBLIC KEY (PEM FORMAT) *</label>
+          <textarea
+            id="publicKeyPem"
+            formControlName="publicKeyPem"
+            placeholder="-----BEGIN PUBLIC KEY-----&#10;...&#10;-----END PUBLIC KEY-----"
+            class="form-textarea"
+            [class.input-error]="hasError('publicKeyPem', 'required')"
+            [disabled]="loading"
+            readonly
+          ></textarea>
+          <div class="form-hint">Your public key is ready for registration</div>
+        </div>
+        <div class="step-navigation">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="backToStep1()"
+            [disabled]="loading || keyGenerating"
+          >
+            BACK TO STEP 1
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="loading || !registerForm.valid || !publicKeyGenerated"
+          >
+            [{{ loading ? 'REGISTERING...' : 'SUBMIT REGISTRATION' }}]
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="links-section">
+      <p>Already have an account? <a routerLink="/login" class="link">[SIGN IN]</a></p>
+    </div>
+    </div>
+
+  </div>
+</div>

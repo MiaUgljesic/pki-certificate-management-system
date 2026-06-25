@@ -1,0 +1,120 @@
+
+
+
+.text-header{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40%;
+}
+
+.form-text h2{
+  font-size: 32px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.form-text p{
+  font-size: 20px; 
+  font-weight: 500;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .text-header p{
+    font-size: 24px;
+  }
+}
+
+#message{
+  margin-top:3%;
+}
+
+.black-switch:checked {
+    background-color: black;
+    border-color: black;
+}
+
+.black-switch:checked::before {
+    background-color: black;
+}
+
+.black-switch {
+    border-color: black;
+}
+
+.brutalist-navbar {
+  background: #feced5;
+  border: 4px solid #000000;
+  border-radius: 0px;
+  box-shadow: 8px 8px 0px #000000;
+  margin: 16px;
+  padding: 8px 0;
+}
+
+.brutalist-brand {
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #000000;
+}
+
+.brutalist-nav {
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.brutalist-nav-list {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 6px 10px;
+  list-style: none;
+}
+
+.brutalist-nav-list.navbar-nav {
+  flex-direction: row;
+}
+
+.brutalist-nav-list .nav-item {
+  display: flex;
+}
+
+.brutalist-link {
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 15px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #FF1493;
+  padding: 4px 6px;
+  background: none;
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.brutalist-link:hover,
+.brutalist-link:focus {
+  text-decoration: underline;
+  color: #FF0080;
+}
+
+.brutalist-link:focus {
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .brutalist-nav {
+    justify-content: center;
+  }
+
+  .brutalist-nav-list {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+

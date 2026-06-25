@@ -1,0 +1,112 @@
+<section class="login-page">
+  <div *ngIf="!showForgotPassword()" class="brutalist-container">
+    <div class="brutalist-box login-card">
+
+      @if (!twoFactorRequired) {
+        <h1 class="login-title">LOG IN</h1>
+        <p class="login-description">Use your account credentials to continue.</p>
+
+        <div *ngIf="errorMessage()" class="error-banner">
+          {{ errorMessage() }}
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">EMAIL ADDRESS</label>
+          <input
+            type="email"
+            class="form-input"
+            placeholder="you@example.com"
+            [value]="email()"
+            (change)="onEmailChange($event.target.value)"
+            [disabled]="loading()"
+          />
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">PASSWORD</label>
+          <div class="brutalist-input-group">
+            <input
+              [type]="showPassword() ? 'text' : 'password'"
+              class="form-input-grouped"
+              placeholder="Enter your password"
+              [value]="password()"
+              (change)="onPasswordChange($event.target.value)"
+              [disabled]="loading()"
+            />
+            <button
+              type="button"
+              class="input-group-button"
+              (click)="showPassword.set(!showPassword())"
+              [disabled]="loading()"
+            >
+              {{ showPassword() ? '[ HIDE ]' : '[ SHOW ]' }}
+            </button>
+          </div>
+        </div>
+
+        <div class="forgot-password-wrapper">
+          <button type="button" class="forgot-password-link" (click)="toggleForgotPassword()">
+            FORGOT PASSWORD ?
+          </button>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-primary btn-login"
+          (click)="login()"
+          [disabled]="loading()"
+        >
+          {{ loading() ? 'LOGGING IN...' : 'LOG IN' }}
+        </button>
+
+        <div class="signup-section">
+          <p class="signup-text">
+            Don't have an account? <a routerLink="/register" class="signup-link">SIGN UP HERE</a>
+          </p>
+        </div>
+      }
+
+      @if (twoFactorRequired) {
+        <h1 class="login-title">TWO-FACTOR</h1>
+        <p class="login-description">Enter the 6-digit code from your authenticator app.</p>
+
+        <div *ngIf="errorMessage()" class="error-banner">
+          {{ errorMessage() }}
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">VERIFICATION CODE</label>
+          <input
+            type="text"
+            class="form-input"
+            placeholder="123456"
+            maxlength="6"
+            [(ngModel)]="twoFactorCode"
+            [disabled]="loading()"
+          />
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-primary btn-login"
+          (click)="verify2FA()"
+          [disabled]="loading()"
+        >
+          {{ loading() ? 'VERIFYING...' : 'VERIFY' }}
+        </button>
+
+        <div class="forgot-password-wrapper">
+          <button type="button" class="forgot-password-link" (click)="twoFactorRequired = false; twoFactorCode = ''; errorMessage.set('')">
+            ← BACK
+          </button>
+        </div>
+      }
+
+    </div>
+  </div>
+
+  <app-forgot-password
+    *ngIf="showForgotPassword()"
+    (backToLogin)="toggleForgotPassword()"
+  ></app-forgot-password>
+</section>

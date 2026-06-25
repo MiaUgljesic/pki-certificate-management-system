@@ -1,0 +1,149 @@
+<div id="message" class="position-fixed top-0 end-0 p-3" style="z-index: 1050">
+  <div class="toast align-items-center text-white border-0"
+       [class.show]="showMessage"
+       [class.bg-black]="true"
+       role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">{{ message }}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" (click)="showMessage = false"></button>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="card">
+    <p class="card-title">CSR — Certificate Request</p>
+    <p class="card-sub">Issuing an end-entity certificate</p>
+
+    <div class="tab-bar">
+      <button class="tab" [class.active]="activeTab==='upload'" (click)="activeTab='upload'">Upload CSR</button>
+      <button class="tab" [class.active]="activeTab==='auto'" (click)="activeTab='auto'">Autogenerate</button>
+    </div>
+
+    <!-- upload tab -->
+    <div *ngIf="activeTab==='upload'">
+      <div class="row1">
+        <span class="lbl">CSR file (.pem) <span class="req">*</span></span>
+        <button class="btn-file" (click)="fileInput.click()">{{ selectedFile ? selectedFile.name : 'Select CSR File' }}</button>
+        <input #fileInput type="file" accept=".pem" hidden (change)="onFileSelected($event)">
+        <p class="hint">openssl req -new -newkey rsa:2048 -nodes -keyout key.pem -out csr.pem</p>
+      </div>
+
+      <hr class="divider">
+      <p class="sec-lbl">Certification Authority (CA)</p>
+
+      <div class="row2">
+        <div>
+          <span class="lbl">Issuer (CA) <span class="req">*</span></span>
+          <select [(ngModel)]="uploadForm.issuerSerialNumber" (ngModelChange)="onIssuerChange()">
+            <option [ngValue]="null">Select CA...</option>
+            <option *ngFor="let ca of availableCAs" [value]="ca.serialNumber">{{ ca.commonName }} — expires {{ ca.validTo | date:'yyyy-MM-dd' }}</option>
+          </select>
+        </div>
+        <div>
+          <span class="lbl">Valid until <span class="req">*</span></span>
+          <input type="date" [(ngModel)]="uploadForm.validTo" [max]="selectedIssuerMaxDate">
+          <p class="hint">Must not exceed CA expiration date</p>
+        </div>
+      </div>
+
+      <button class="btn-submit btn-pink" (click)="uploadCsr()" [disabled]="loading">{{ loading ? 'Processing...' : 'Issue Certificate' }}</button>
+    </div>
+
+    <!-- autogenerate tab -->
+    <div *ngIf="activeTab==='auto'">
+      <p class="sec-lbl">Subject Information</p>
+
+      <div class="row2">
+        <div>
+          <span class="lbl">Common Name (CN) <span class="req">*</span></span>
+          <input type="text" [(ngModel)]="autogenerateForm.commonName" placeholder="e.g. www.example.com">
+        </div>
+        <div>
+          <span class="lbl">Organization (O) <span class="req">*</span></span>
+          <select [(ngModel)]="autogenerateForm.organization">
+            <option [ngValue]="null">Select Organization...</option>
+            <option *ngFor="let org of availableOrganizations" [value]="org.name">{{ org.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row3">
+        <div>
+          <span class="lbl">Organizational Unit (OU)</span>
+          <input type="text" [(ngModel)]="autogenerateForm.organizationalUnit" placeholder="e.g. IT">
+        </div>
+        <div>
+          <span class="lbl">Country (C)</span>
+          <input type="text" [(ngModel)]="autogenerateForm.country" maxlength="2" placeholder="RS">
+        </div>
+        <div>
+          <span class="lbl">Email (E)</span>
+          <input type="email" [(ngModel)]="autogenerateForm.email" placeholder="admin@example.com">
+        </div>
+      </div>
+
+      <hr class="divider">
+      <p class="sec-lbl">Certification Authority (CA)</p>
+
+      <div class="row2">
+        <div>
+          <span class="lbl">Issuer (CA) <span class="req">*</span></span>
+          <select [(ngModel)]="autogenerateForm.issuerSerialNumber" (ngModelChange)="onIssuerChange()">
+            <option [ngValue]="null">Select CA...</option>
+            <option *ngFor="let ca of availableCAs" [value]="ca.serialNumber">{{ ca.commonName }} — expires {{ ca.validTo | date:'yyyy-MM-dd' }}</option>
+          </select>
+        </div>
+        <div>
+          <span class="lbl">Valid until <span class="req">*</span></span>
+          <input type="date" [(ngModel)]="autogenerateForm.validTo" [max]="selectedIssuerMaxDate">
+          <p class="hint">Must not exceed CA expiration date</p>
+        </div>
+      </div>
+
+      <hr class="divider">
+      <p class="sec-lbl">Private Key Download</p>
+      <div class="alert-warn">The private key is returned only once — immediately after generation. It will not be stored on the server.</div>
+
+      <hr class="divider">
+      <p class="sec-lbl">X.509 Standard Extensions</p>
+      <div class="extensions-container">
+        <div class="checkbox-group">
+          <input type="checkbox" id="ski" [(ngModel)]="autogenerateForm.includeSubjectKeyIdentifier">
+          <label for="ski" class="checkbox-label">Subject Key Identifier</label>
+          <span class="extension-description">Identifies the public key of this certificate</span>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="aki" [(ngModel)]="autogenerateForm.includeAuthorityKeyIdentifier">
+          <label for="aki" class="checkbox-label">Authority Key Identifier</label>
+          <span class="extension-description">Identifies the issuer's public key</span>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="eku" [(ngModel)]="autogenerateForm.includeExtendedKeyUsage">
+          <label for="eku" class="checkbox-label">Extended Key Usage</label>
+          <span class="extension-description">TLS Web Server & Client Authentication</span>
+        </div>
+      </div>
+
+      <div class="row2 mt-3">
+        <div>
+          <span class="lbl">Format <span class="req">*</span></span>
+          <div class="fmt-row">
+            <button type="button" class="fmt-btn" [class.sel]="autogenerateForm.keystoreFormat==='PKCS12'" (click)="autogenerateForm.keystoreFormat='PKCS12'">PKCS12 (.p12)</button>
+          </div>
+        </div>
+        <div>
+          <span class="lbl">Keystore Password <span class="req">*</span></span>
+          <input type="password" [(ngModel)]="autogenerateForm.keyStorePassword" placeholder="Choose a strong password">
+        </div>
+      </div>
+
+      <div class="row1">
+        <span class="lbl">Alias (optional)</span>
+        <input type="text" [(ngModel)]="autogenerateForm.alias" placeholder="Default: serial number">
+      </div>
+
+      <button class="btn-submit btn-black" (click)="autogenerate()" [disabled]="loading">{{ loading ? 'Generating...' : 'Generate and Download Keystore' }}</button>
+    </div>
+  </div>
+</div>

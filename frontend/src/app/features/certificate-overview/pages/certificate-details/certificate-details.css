@@ -1,0 +1,103 @@
+.container {
+  padding-top: 2.5rem;
+}
+
+.detail-item {
+  margin-bottom: 1rem;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-weight: 900;
+  color: #222222;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+  display: block;
+  letter-spacing: 1px;
+}
+
+.detail-value {
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  color: #222222;
+  margin-bottom: 0;
+}
+
+.card {
+  background: #fff0f5;
+  border: 4px solid #000000;
+  border-radius: 0px;
+  box-shadow: 8px 8px 0px #000000;
+}
+
+.card-header {
+  background-color: #FF1493;
+  color: #ffffff;
+  padding: 1rem;
+  border-bottom: 3px solid #000000;
+  border-radius: 0px;
+}
+
+.card-header h5 {
+  font-family: 'Courier New', monospace;
+  font-weight: 900;
+  margin: 0;
+}
+
+.btn-outline-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Courier New', monospace;
+  font-weight: 900;
+  border: 3px solid #000000;
+}
+
+.detail-actions { display: flex; gap: 8px; margin-top: 12px; }
+
+.top-actions { gap: 8px; }
+
+.sharp-btn {
+  padding: 8px 12px;
+  border: 3px solid #000000;
+  background: #fff0f5;
+  box-shadow: 8px 8px 0px #000000;
+  border-radius: 0px;
+  font-family: 'Courier New', monospace;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.sharp-btn-danger { background: #000000; color: #ffffff; box-shadow: none; }
+
+.sharp-btn:hover:not(:disabled) {
+  box-shadow: 2px 2px 0px #000000;
+  transform: translate(2px, 2px);
+}
+
+.sharp-btn:active:not(:disabled) {
+  box-shadow: 0px 0px 0px #000000;
+  transform: translate(4px, 4px);
+}
+
+.sharp-btn-danger:hover:not(:disabled) {
+  background: #000000 !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.sharp-btn-danger:active:not(:disabled) {
+  box-shadow: none !important;
+  transform: translate(4px, 4px);
+}
+
+@media (max-width: 768px) {
+  .container { padding-top: 1.25rem; }
+  .card { box-shadow: 4px 4px 0px #000000; border-width: 3px; }
+}

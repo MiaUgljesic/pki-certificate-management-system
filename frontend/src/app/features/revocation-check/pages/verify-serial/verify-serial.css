@@ -1,0 +1,191 @@
+.brutalist-container { 
+    padding: 24px; 
+    background: transparent; 
+    display: flex; 
+    justify-content: center; 
+}
+
+.brutalist-box { 
+    background: #fff0f5; 
+    border: 3px solid #000000; 
+    padding: 40px; 
+    width: 100%;
+    max-width: 550px; 
+    margin: 24px auto; 
+    box-shadow: 8px 8px 0px #000000; 
+}
+
+/* Typography & Global Box Font Override */
+.brutalist-box,
+.brutalist-box .login-title,
+.brutalist-box .login-description,
+.brutalist-box .form-label,
+.brutalist-box .form-input-grouped,
+.brutalist-box .input-group-button,
+.brutalist-box .signup-text,
+.brutalist-box .signup-link {
+	font-family: 'Courier New', 'Monaco', monospace;
+}
+
+.login-title { 
+    font-size: 24px; 
+    font-weight: 900;
+    margin-top: 0;
+    margin-bottom: 8px; 
+    text-transform: uppercase;
+}
+
+.login-description { 
+    font-size: 12px; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    color: #555555; 
+    margin: 0 0 24px 0; 
+}
+
+.form-label {
+    display: block;
+    font-weight: 900;
+    font-size: 13px;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+}
+
+/* Brutalist Input Grouping (Input + Button inline) */
+.brutalist-input-group {
+    display: flex;
+    border: 3px solid #000000;
+    background: #ffffff;
+    box-shadow: 4px 4px 0px #000000;
+}
+
+.form-input-grouped {
+    flex: 1;
+    border: none;
+    padding: 14px;
+    font-size: 14px;
+    outline: none;
+    background: transparent;
+    min-width: 0;
+}
+
+.input-group-button {
+    border: none !important; 
+    border-left: 3px solid #000000 !important;
+    box-shadow: none !important; 
+    width: auto !important;
+    padding: 0 24px !important;
+}
+
+/* Buttons */
+.btn {
+	padding: 14px 16px;
+	border-radius: 0px;
+	font-size: 13px;
+	font-weight: 900;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	cursor: pointer;
+	transition: 0ms;
+}
+
+.btn-primary {
+	background: #FF1493;
+	color: #ffffff;
+}
+
+.btn-primary:hover:not(:disabled) {
+	background: #FF0080;
+}
+
+.btn-primary:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	background: #aaaaaa;
+}
+
+/* Error Banner */
+.error-banner {
+    background: #ffcccc;
+    border: 3px solid #000000;
+    padding: 12px;
+    margin-bottom: 20px;
+    font-family: 'Courier New', monospace;
+    font-weight: 900;
+    font-size: 12px;
+    color: #ff0000;
+    box-shadow: 4px 4px 0px #000000;
+}
+
+/* Dynamic Result Blocks */
+.result-block { 
+    text-align: left; 
+    border: 3px solid #000000; 
+    padding: 20px; 
+    margin-top: 24px; 
+    box-shadow: 4px 4px 0px #000000;
+}
+
+.status-valid {
+    background: #0ae648; 
+}
+
+.status-revoked {
+    background: #ff4500; 
+    color: #ffffff;
+}
+
+.status-badge {
+    font-size: 18px;
+    font-weight: 900;
+    text-transform: uppercase;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+}
+
+.signup-text {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.status-revoked .status-badge {
+    border-color: #ffffff;
+}
+
+.status-revoked .signup-link {
+    color: #ffffff !important;
+}
+
+.crl-link-container {
+    margin-top: 16px;
+    padding-top: 8px;
+    border-top: 1px dashed #000000;
+}
+
+.status-revoked .crl-link-container {
+    border-top-color: #ffffff;
+}
+
+.signup-link { 
+    font-size: 12px; 
+    font-weight: 900; 
+    text-transform: uppercase; 
+    color: #000000; 
+    text-decoration: none; 
+}
+
+.signup-link:hover { 
+    text-decoration: underline; 
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+	.brutalist-box { padding: 20px; max-width: 100%; margin: 12px; }
+    .brutalist-input-group { flex-direction: column; border: none; box-shadow: none; }
+    .form-input-grouped { border: 3px solid #000000; margin-bottom: 8px; background: #ffffff; }
+    .input-group-button { border: 3px solid #000000 !important; padding: 14px !important; width: 100% !important; }
+}

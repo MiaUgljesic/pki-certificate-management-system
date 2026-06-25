@@ -1,0 +1,36 @@
+# ============ SECRETS ============
+**/.env
+!**/.env.example
+**/*.p12
+**/*.pem
+**/*.key
+
+# ============ BACKEND ============
+backend/target/
+backend/.mvn/
+backend/*.class
+backend/*.jar
+backend/*.war
+*.iml
+.idea/
+.idea/**
+*.iws
+
+# ============ FRONTEND ============
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.env
+
+# ============ SYSTEM ============
+.DS_Store
+Thumbs.db
+*.log
+
+# ============ SECRETS ============
+.env
+**/.env
+!**/.env.example
+
+# ============ ANGULAR ENVIRONMENTS ============
+**/environment.ts

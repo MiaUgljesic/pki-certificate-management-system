@@ -1,0 +1,17 @@
+info:
+  name: get_all
+  type: http
+
+http:
+  method: GET
+  url: http://localhost:8080/api/certificates/all
+  headers:
+    - name: Authorization
+      value: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTc3OTIxNDE2OCwiZXhwIjoxNzc5MjE0MTc4fQ.Y_9nygmP4vzNmt_VtGacRIBewUE-sqsZb-i-ofZt9SQ
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

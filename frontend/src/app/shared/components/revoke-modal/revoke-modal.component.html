@@ -1,0 +1,26 @@
+<div class="modal-overlay" (click)="onCancel()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">REVOKE CERTIFICATE</div>
+        <div class="modal-subtitle">Serial: {{ serialNumber }}</div>
+      </div>
+      <button class="modal-close" type="button" (click)="onCancel()">×</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="modal-field">
+        <label class="modal-label">REVOCATION REASON</label>
+        <select class="select" [(ngModel)]="selectedReason">
+          <option *ngFor="let r of revocationReasons" [value]="r">{{ r }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <app-button text="Cancel" variant="ghost" width="120px" height="36px" (clicked)="onCancel()"></app-button>
+      <app-button text="[ CONFIRM REVOCATION ]" variant="primary" width="220px" height="36px" [disabled]="loading" (clicked)="onConfirm()"></app-button>
+    </div>
+  </div>
+</div>

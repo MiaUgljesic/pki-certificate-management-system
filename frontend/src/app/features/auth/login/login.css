@@ -1,0 +1,582 @@
+.login-page {
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  background: #f5f2eb;
+  overflow-x: hidden;
+}
+
+.brutalist-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.brutalist-box {
+  background: #fff0f5;
+  border: 4px solid #000000;
+  border-radius: 0px;
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 8px 8px 0px #000000;
+  animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-card {
+  width: 100%;
+}
+
+.login-title {
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 28px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #000000;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.login-description {
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #000000;
+  margin: 0 0 24px 0;
+  line-height: 1.6;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #000000;
+  margin-bottom: 4px;
+}
+
+.form-input {
+  padding: 12px;
+  border: 3px solid #000000;
+  border-radius: 0px;
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 1px;
+  background: #ffffff;
+  color: #000000;
+  transition: 0ms;
+}
+
+.form-input:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px #FF1493;
+}
+
+.form-input:disabled {
+  background: #f0f0f0;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-input::placeholder {
+  color: #999999;
+  opacity: 1;
+}
+
+.brutalist-input-group {
+  display: flex;
+  align-items: stretch;
+  border: 3px solid #000000;
+  border-radius: 0px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.form-input-grouped {
+  flex: 1;
+  border: none;
+  border-radius: 0px;
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 1px;
+  padding: 12px;
+  color: #000000;
+  background: #ffffff;
+  transition: 0ms;
+}
+
+.form-input-grouped:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px #FF1493;
+}
+
+.form-input-grouped:disabled {
+  background: #f0f0f0;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-input-grouped::placeholder {
+  color: #999999;
+  opacity: 1;
+}
+
+/* Ensure entered text preserves case and handle browser autofill */
+.form-input,
+.form-input-grouped,
+input.form-input,
+input.form-input-grouped,
+.form-select,
+textarea.form-input {
+  text-transform: none !important;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill {
+  -webkit-text-fill-color: #000000 !important;
+  text-transform: none !important;
+}
+
+.input-group-button {
+  background: #ffffff;
+  border: none;
+  border-left: 3px solid #000000;
+  border-radius: 0px;
+  color: #000000;
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-weight: 900;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  padding: 0 12px;
+  white-space: nowrap;
+  transition: 0ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-group-button:hover:not(:disabled) {
+  background: #000000;
+  color: #ffffff;
+}
+
+.input-group-button:active:not(:disabled) {
+  background: #000000;
+  color: #ffffff;
+  box-shadow: inset 0 0 0 2px #ffffff;
+}
+
+.input-group-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.forgot-password-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+.forgot-password-link {
+  background: none;
+  border: none;
+  color: #FF1493;
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-weight: 900;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0ms;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
+  color: #FF0080;
+}
+
+.forgot-password-link:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error-banner {
+  background: #FFF0F0;
+  border: 2px solid #D11A2A;
+  border-radius: 0px;
+  padding: 12px;
+  margin-bottom: 20px;
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #FF0033;
+  letter-spacing: 0.5px;
+}
+
+.btn {
+  padding: 14px 16px;
+  border: 3px solid #000000;
+  border-radius: 0px;
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0ms;
+}
+
+.btn-primary {
+  background: #FF1493;
+  color: #ffffff;
+  box-shadow: 4px 4px 0px #000000;
+  border: 3px solid #000000;
+  width: 100%;
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 2px 2px 0px #000000;
+  transform: translate(2px, 2px);
+}
+
+.btn-primary:active:not(:disabled) {
+  box-shadow: 0px 0px 0px #000000;
+  transform: translate(4px, 4px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-login {
+  margin-bottom: 24px;
+}
+
+.signup-section {
+  text-align: center;
+  border-top: 2px solid #000000;
+  padding-top: 20px;
+}
+
+.signup-text {
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #000000;
+  margin: 0;
+}
+
+.signup-link {
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #FF1493;
+  text-decoration: none;
+  transition: 0ms;
+}
+
+.signup-link:hover {
+  color: #FF0080;
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .brutalist-box {
+    padding: 24px;
+    box-shadow: 4px 4px 0px #000000;
+  }
+
+  .login-title {
+    font-size: 22px;
+  }
+
+  .login-description {
+    font-size: 11px;
+  }
+
+  .btn {
+    padding: 12px 14px;
+    font-size: 11px;
+  }
+}
+
+
+/* Y2K Soft-Brutalist Recovery Container */
+.brutalist-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 24px;
+}
+
+.recovery-container {
+  width: 100%;
+}
+
+.brutalist-box {
+  background: #feced5;
+  border: 3px solid #000000;
+  border-radius: 0px;
+  padding: 32px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 8px 8px 0px #000000;
+}
+
+.recovery-card {
+  animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.recovery-title {
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 24px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #000000;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.recovery-description {
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #000000;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 20px;
+}
+
+.form-input {
+  padding: 12px;
+  border: 3px solid #000000;
+  border-radius: 0px;
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: #ffffff;
+  color: #000000;
+}
+
+.form-input:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px #FF1493;
+}
+
+.form-input:disabled {
+  background: #f0f0f0;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-label {
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #000000;
+  margin-bottom: 4px;
+}
+
+/* Buttons */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.btn {
+  padding: 12px 16px;
+  border: 2px solid #000000;
+  border-radius: 0px;
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0ms;
+}
+
+.btn-primary {
+  background: #FF1493;
+  color: #ffffff;
+  box-shadow: 4px 4px 0px #000000;
+  border: 2px solid #000000;
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 2px 2px 0px #000000;
+  transform: translate(2px, 2px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 4px 4px 0px #000000;
+  border: 2px solid #000000;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  box-shadow: 2px 2px 0px #000000;
+  transform: translate(2px, 2px);
+}
+
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Feedback Banners */
+.error-banner {
+  background: #FFF0F0;
+  border: 2px solid #D11A2A;
+  border-radius: 0px;
+  padding: 12px;
+  margin-bottom: 16px;
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #FF0033;
+  letter-spacing: 0.5px;
+}
+
+.success-banner {
+  background: #F0FFF0;
+  border: 2px solid #22C55E;
+  border-radius: 0px;
+  padding: 12px;
+  margin-bottom: 16px;
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #16A34A;
+  letter-spacing: 0.5px;
+}
+
+/* Security Notice */
+.security-notice {
+  background: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 0px;
+  padding: 12px;
+  font-family: 'Courier New', 'Monaco', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.6;
+}
+
+.security-notice p {
+  margin: 0 0 8px 0;
+}
+
+.security-notice ul {
+  margin: 0;
+  padding-left: 16px;
+  list-style: none;
+}
+
+.security-notice li {
+  margin: 4px 0;
+}
+
+.security-notice li:before {
+  content: '✓ ';
+  color: #FF1493;
+  font-weight: 900;
+  margin-right: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .brutalist-box {
+    padding: 20px;
+    box-shadow: 4px 4px 0px #000000;
+  }
+
+  .recovery-title {
+    font-size: 18px;
+  }
+
+  .btn {
+    padding: 10px 12px;
+    font-size: 11px;
+  }
+}

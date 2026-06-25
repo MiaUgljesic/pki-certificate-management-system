@@ -1,0 +1,122 @@
+<div class="login-page">
+  <div class="brutalist-container">
+    <div class="form-card">
+      <div class="form-header">
+        <h1>Register CA</h1>
+      </div>
+
+      <div *ngIf="errorMessage()" class="error-banner">
+        {{ errorMessage() }}
+      </div>
+
+      <form (ngSubmit)="register()" class="register-ca-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName" class="form-label">
+              First Name <span class="required">*</span>
+            </label>
+            <input
+              id="firstName"
+              type="text"
+              class="form-input"
+              [class.is-invalid]="fieldErrors()['firstName']"
+              placeholder="ENTER FIRST NAME"
+              [value]="firstName()"
+              (input)="onFirstNameChange($event.target.value)"
+            />
+            <div *ngIf="fieldErrors()['firstName']" class="error-message">
+              {{ fieldErrors()['firstName'] }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="lastName" class="form-label">
+              Last Name <span class="required">*</span>
+            </label>
+            <input
+              id="lastName"
+              type="text"
+              class="form-input"
+              [class.is-invalid]="fieldErrors()['lastName']"
+              placeholder="ENTER LAST NAME"
+              [value]="lastName()"
+              (input)="onLastNameChange($event.target.value)"
+            />
+            <div *ngIf="fieldErrors()['lastName']" class="error-message">
+              {{ fieldErrors()['lastName'] }}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group form-group-full">
+          <label for="userEmail" class="form-label">
+            Email Address <span class="required">*</span>
+          </label>
+          <input
+            id="userEmail"
+            type="email"
+            class="form-input"
+            [class.is-invalid]="fieldErrors()['userEmail']"
+            placeholder="ENTER EMAIL ADDRESS"
+            [value]="userEmail()"
+            (input)="onUserEmailChange($event.target.value)"
+          />
+          <div *ngIf="fieldErrors()['userEmail']" class="error-message">
+            {{ fieldErrors()['userEmail'] }}
+          </div>
+        </div>
+
+        <div class="form-group form-group-full">
+          <label for="organizationId" class="form-label">
+            Organization <span class="required">*</span>
+          </label>
+          <select
+            id="organizationId"
+            class="form-input"
+            [class.is-invalid]="fieldErrors()['organizationId']"
+            [value]="organizationId() || ''"
+            (change)="onOrganizationChange($event)"
+          >
+            <option value="">-- CHOOSE ORGANIZATION --</option>
+            <option value="NEW">[ + CREATE NEW ORGANIZATION ]</option>
+            <option *ngFor="let org of organizations()" [value]="org.id">
+              {{ org.name }}
+            </option>
+          </select>
+          <div *ngIf="fieldErrors()['organizationName']" class="error-message">
+            {{ fieldErrors()['organizationName'] }}
+          </div>
+        </div>
+
+        <div class="form-group form-group-full" *ngIf="isNewOrganization()">
+          <label for="newOrganizationName" class="form-label">
+            New Organization Name <span class="required">*</span>
+          </label>
+          <input
+            id="newOrganizationName"
+            type="text"
+            class="form-input"
+            [class.is-invalid]="fieldErrors()['organizationName']"
+            placeholder="ENTER NEW ORGANIZATION NAME..."
+            [value]="newOrganizationName()"
+            (input)="onNewOrganizationNameChange($event.target.value)"
+          />
+          <div *ngIf="fieldErrors()['organizationName']" class="error-message">
+            {{ fieldErrors()['organizationName'] }}
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="loading()"
+            (click)="onRegisterClick($event)"
+          >
+            {{ loading() ? 'REGISTERING...' : 'REGISTER' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

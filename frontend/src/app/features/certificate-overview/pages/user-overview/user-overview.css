@@ -1,0 +1,30 @@
+/* Certificate Overview - brutalist/login theme */
+:host {
+	display: block;
+	min-height: calc(100vh - 60px);
+	padding: 24px;
+	background: #f5f2eb;
+}
+
+/* Wrap the table in a pink brutalist card */
+app-user-overview-table { display:block; background: transparent; border:none; padding:0; box-shadow:none; }
+
+.px-5 { padding-left: 0 !important; padding-right: 0 !important; }
+
+.pb-5 { padding-bottom: 0 !important; }
+
+.d-flex.justify-content-center.align-items-center.gap-3.mb-3 {
+	margin-top: 16px;
+	font-family: 'Courier New', monospace;
+	color: #000000;
+}
+
+.d-flex.justify-content-center.align-items-center.gap-3.mb-3 .text-muted {
+	color: #000000 !important;
+}
+
+@media (max-width: 768px) {
+  :host { padding: 12px; }
+  app-user-overview-table { padding: 0; box-shadow: none; }
+}
+

@@ -1,0 +1,126 @@
+.activate-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: white;
+  padding: 20px;
+}
+
+.activate-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.activate-card h1 {
+  margin: 0 0 30px 0;
+  text-align: center;
+  color: #333;
+  font-size: 28px;
+}
+
+.activate-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.password-input-wrapper app-input-component {
+  width: 100%;
+}
+
+.password-input-wrapper app-input-component ::ng-deep input {
+  padding-right: 40px !important;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  color: #333;
+}
+
+.password-toggle-btn:hover {
+  opacity: 0.7;
+}
+
+.password-toggle-btn .eye-icon {
+  width: 20px;
+  height: 20px;
+  stroke: #333;
+  color: #333;
+}
+
+.password-error {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.error-message {
+  background-color: #fee;
+  color: #c33;
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.success-message {
+  background-color: #efe;
+  color: #3c3;
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.field-error {
+  color: #c33;
+  font-size: 12px;
+  margin-top: -4px;
+}
+
+app-button {
+  margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+  .activate-card {
+    padding: 30px 20px;
+  }
+
+  .activate-card h1 {
+    font-size: 24px;
+  }
+}

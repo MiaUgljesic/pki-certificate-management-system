@@ -1,0 +1,363 @@
+* { box-sizing: border-box; }
+
+.page {
+  background: #f5f2eb;
+  font-family: 'Courier New', Monaco, monospace;
+  min-height: calc(100vh - 60px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 5px;
+}
+
+.card {
+  background: #feced5;
+  border: 4px solid #000;
+  box-shadow: 8px 8px 0 #000;
+  width: 100%;
+  max-width: 800px; 
+  padding: 24px 28px;
+  border-radius: 12px;
+}
+
+.card-title {
+  font-size: 22px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #000;
+  margin: 0 0 4px 0;
+}
+
+.card-sub {
+  font-size: 12px;
+  font-weight: 700;
+  color: #000;
+  margin: 0 0 20px 0;
+  border-bottom: 3px solid #000;
+  padding-bottom: 12px;
+}
+
+.tab-bar {
+  display: flex;
+  gap: 0;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: #fff0f5;
+  border: 3px solid #000;
+  cursor: pointer;
+  color: #000;
+  margin-right: -3px;
+}
+
+.tab.active {
+  background: #FF1493;
+  color: #fff;
+  z-index: 1;
+  position: relative;
+}
+
+.row1 {
+  margin-bottom: 12px;
+}
+
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.row3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.lbl {
+  display: block;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #000;
+  margin-bottom: 4px;
+}
+
+.req {
+  color: #FF1493;
+}
+
+input[type=text],
+input[type=email],
+input[type=date],
+input[type=password],
+select {
+  width: 100%;
+  padding: 10px 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  border: 3px solid #000;
+  border-radius: 0;
+  background: #fff;
+  color: #000;
+  height: 40px;
+  letter-spacing: 0.5px;
+  text-transform: none;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px #FF1493;
+}
+
+input::placeholder {
+  color: #999;
+  font-weight: 700;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill {
+  -webkit-text-fill-color: #000 !important;
+  text-transform: none !important;
+}
+
+.hint {
+  font-size: 11px;
+  font-weight: 700;
+  color: #555;
+  margin: 5px 0 0 0;
+  font-family: 'Courier New', monospace;
+}
+
+.divider {
+  border: none;
+  border-top: 3px solid #000;
+  margin: 20px 0;
+}
+
+.sec-lbl {
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #000;
+  margin-bottom: 12px;
+  border-left: 4px solid #FF1493;
+  padding-left: 8px;
+}
+
+.alert-warn {
+  background: #fff0f5;
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0 #000;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #000;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  font-family: 'Courier New', monospace;
+}
+
+.fmt-row {
+  display: flex;
+  gap: 8px;
+}
+
+.fmt-btn {
+  padding: 8px 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  border: 3px solid #000;
+  background: #fff0f5;
+  cursor: pointer;
+  color: #000;
+}
+
+.fmt-btn.sel {
+  background: #FF1493;
+  color: #fff;
+  box-shadow: 3px 3px 0 #000;
+}
+
+.fmt-btn:hover:not(.sel) {
+  background: #ffe0ef;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border: 3px solid #000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  box-shadow: 4px 4px 0 #000;
+  transition: 0ms;
+}
+
+.btn-submit:hover:not(:disabled) {
+  box-shadow: 2px 2px 0 #000;
+  transform: translate(2px, 2px);
+}
+
+.btn-submit:active:not(:disabled) {
+  box-shadow: 0 0 0 #000;
+  transform: translate(4px, 4px);
+}
+
+.btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-pink {
+  background: #FF1493;
+  color: #fff;
+}
+
+.btn-black {
+  background: #000;
+  color: #fff;
+}
+
+.error-msg {
+  color: #c00;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 8px;
+  font-family: 'Courier New', monospace;
+}
+
+@media (max-width: 768px) {
+  .page { padding: 12px; }
+  .card { padding: 16px; box-shadow: 4px 4px 0 #000; }
+  .row2, .row3 { grid-template-columns: 1fr; }
+  .tab { padding: 8px 14px; font-size: 11px; }
+}
+
+.btn-file {
+  width: 100%;
+  padding: 10px 14px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 3px solid #000;
+  background: black;
+  color: #fff;
+  cursor: pointer;
+  text-align: left;
+  box-shadow: 4px 4px 0 #000;
+  height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-file:hover {
+  background: black;
+  box-shadow: 2px 2px 0 #000;
+  transform: translate(2px, 2px);
+  color: #fff;
+}
+
+.extensions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  background-color: #fff0f5;
+  border: 3px solid #000000;
+  border-radius: 0px;
+  box-shadow: 6px 6px 0px #000000;
+  margin-top: 8px;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.form-checkbox {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  cursor: pointer;
+  border: 3px solid #000000;
+  border-radius: 0px;
+  background: #ffffff;
+  display: inline-block;
+  position: relative;
+}
+
+.form-checkbox:hover {
+  background-color: #fff7fb;
+}
+
+.form-checkbox:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px #FF1493;
+}
+
+.form-checkbox:checked {
+  background: #000000;
+}
+
+.form-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-label {
+  font-size: 12px;
+  font-weight: 900;
+  color: #000000;
+  cursor: pointer;
+  display: block;
+  font-family: 'Courier New', 'Monaco', monospace;
+  text-transform: uppercase;
+}
+
+.extension-description {
+  display: block;
+  font-size: 11px;
+  color: #666666;
+  margin-top: 2px;
+  margin-left: 28px;
+  font-style: italic;
+}

@@ -1,0 +1,68 @@
+<div id="message" class="position-fixed top-0 end-0 p-3" style="z-index: 1050">
+  <div class="toast align-items-center text-white bg-black border-0" [class.show]="showMessage" role="alert"
+    aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        {{ message }}
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" (click)="showMessage = false">
+      </button>
+    </div>
+  </div>
+</div>
+<header class="navbar navbar-light mb-1 brutalist-navbar">
+  <div class="container-fluid px-5">
+    <a class="navbar-brand fw-bold fs-4 brutalist-brand" routerLink="/" (click)="closeMenu()">App</a>
+    <div class="ms-auto d-flex align-items-center brutalist-nav">
+      <ul class="navbar-nav brutalist-nav-list">
+        <li class="nav-item">
+          <a class="nav-link brutalist-link" routerLink="/revocation-check" (click)="closeMenu()">Revocation check</a>
+        </li>
+        @if (!isLoggedIn()) {
+        <li class="nav-item">
+          <a class="nav-link brutalist-link" routerLink="/login" (click)="closeMenu()">Login</a>
+        </li>
+        }
+        @if (isRegularUser()) {
+        <li class="nav-item">
+          <a class="nav-link brutalist-link" routerLink="/csr" (click)="closeMenu()">CSR</a>
+        </li>
+        }
+        @if (isRegularUser()) {
+        <li class="nav-item">
+          <a class="nav-link brutalist-link" routerLink="/user-certificate-overview" (click)="closeMenu()">User certificates</a>
+        </li>
+        }
+        @if (isRegularUser()) {
+        <li class="nav-item">
+          <a class="nav-link brutalist-link" routerLink="/user-profile" (click)="closeMenu()">User profile</a>
+        </li>
+        }
+        @if (isCAUser() || isAdmin()) {
+        <li class="nav-item">
+          <a class="nav-link brutalist-link" routerLink="/issue-certificate" (click)="closeMenu()">Issue Certificate</a>
+        </li>
+        }
+        @if (isAdmin()) {
+        <li class="nav-item">
+          <a class="nav-link brutalist-link" routerLink="/admin/register-ca" (click)="closeMenu()">Register CA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link brutalist-link" routerLink="/admin/all-certificates" (click)="closeMenu()">All Certificates</a>
+        </li>
+        }
+        @if (isCAUser()) {
+        <li class="nav-item">
+          <a class="nav-link brutalist-link" routerLink="/ca/organization-certificates" (click)="closeMenu()">Organization Certificates</a>
+        </li>
+        }
+      </ul>
+      @if (isLoggedIn()) {
+      <div class="mt-1 me-1 ms-1">
+        <app-button width="100px" height="35px" variant="primary" fontWeight="700" textTransform="uppercase"
+          text="Log out" (clicked)="logout()"></app-button>
+      </div>
+      }
+    </div>
+  </div>
+</header>
