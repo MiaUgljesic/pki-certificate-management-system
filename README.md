@@ -2,8 +2,8 @@
 
 # Public Key Infrastructure (PKI) & Certificate Management System
 
-##  Project Showcase Notice
->  **Academic Integrity & Privacy:** The complete source code for this project is hosted within a private GitHub organization managed by the Faculty of Technical Sciences, University of Novi Sad. To comply with university regulations and prevent academic plagiarism, the source code is kept confidential. This repository serves as a **comprehensive technical specification, architectural blueprint, and portfolio showcase** detailing my specific contributions and implementation choices.
+##  Notice
+> **Academic Integrity & Privacy:** This repository contains a public mirror of a project originally developed for a private university assignment.
 
 ---
 
