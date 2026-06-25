@@ -46,6 +46,9 @@ This is an enterprise-grade, full-stack application designed to model a secure, 
 <img width="1082" height="804" alt="certificate" src="https://github.com/user-attachments/assets/8301a3f0-593d-4e13-a40c-65b5b48d5697" />
 <img width="582" height="440" alt="revoke" src="https://github.com/user-attachments/assets/16a3fe3d-a64d-4732-97bd-27fe48f3198a" />
 
+### HTTPS
+
+<img width="326" height="267" alt="image" src="https://github.com/user-attachments/assets/954fcfb6-7533-418a-a6d1-1b4c18460abc" />
 
 
 
